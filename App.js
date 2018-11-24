@@ -7,7 +7,7 @@ export default class App extends Component {
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           <TextInput style={styles.placeInput} placeholder='Input Text Here' />
-          <Button title='Add' style={styles.placeBbutton} />
+          <Button title='Add' style={styles.placeButton} />
         </View>
       </View>
     );
@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   placeInput: {
     width: '70%',
   },
-  placeBbutton: {
+  placeButton: {
     width: '30%',
   },
 });
