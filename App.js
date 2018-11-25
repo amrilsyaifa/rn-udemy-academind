@@ -15,11 +15,23 @@ export default class App extends Component {
       };
     });
   };
+
+  placeDeletedHandler = (index) => {
+    // index id yang di passing dari list item
+    this.setState((prevState) => {
+      return {
+        places: prevState.places.filter((place, idx) => {
+          // Fungsi filter() adalah untuk membuat array baru berisi elemen yang lolos pengecekan di dalam fungsi yang telah di buat., contoh fungsi ini yang tidak sama dengan index yang akan di ambil
+          return idx !== index; // jika tidak sama dengan index yang di terima maka di lanjut. jika sama tidak di simpan di dalam state
+        }),
+      };
+    });
+  };
   render() {
     return (
       <View style={styles.container}>
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
-        <PlaceList places={this.state.places} />
+        <PlaceList places={this.state.places} onPressDeleted={this.placeDeletedHandler} />
       </View>
     );
   }
