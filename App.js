@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
+import PlaceImage from './src/assets/dot.png';
 
 export default class App extends Component {
   state = {
@@ -12,7 +13,7 @@ export default class App extends Component {
   placeAddedHandler = (placeName) => {
     this.setState((prevState) => {
       return {
-        places: prevState.places.concat({ key: '' + Math.random(), value: placeName }), // concat() berfungsi untuk menggabungkan array dari places dengan placeName
+        places: prevState.places.concat({ key: '' + Math.random(), name: placeName, image: PlaceImage }), // concat() berfungsi untuk menggabungkan array dari places dengan placeName
       };
     });
   };

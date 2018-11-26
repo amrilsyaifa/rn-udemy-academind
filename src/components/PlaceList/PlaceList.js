@@ -8,7 +8,11 @@ const placeList = (props) => {
       style={styles.listItem}
       data={props.places}
       renderItem={(info) => (
-        <ListItem placeName={info.item.value} onItemPressed={() => props.onPressDeleted(info.item.key)} /> // map hanya dapat di fungsikan di dalam sebuah object tidak bisa array
+        <ListItem
+          placeName={info.item.name}
+          onItemPressed={() => props.onPressDeleted(info.item.key)}
+          placeImage={info.item.image}
+        /> // map hanya dapat di fungsikan di dalam sebuah object tidak bisa array
       )}
     />
   );
