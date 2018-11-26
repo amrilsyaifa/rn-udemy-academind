@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import ListItem from '../ListItem/ListItem';
 
 const placeList = (props) => {
-  const placeOutput = props.places.map((place, index) => (
-    <ListItem key={index} placeName={place} onItemPressed={() => props.onPressDeleted(index)} />
-  )); // map hanya dapat di fungsikan di dalam sebuah object tidak bisa array
-  return <View style={styles.listItem}>{placeOutput}</View>;
+  return (
+    <FlatList
+      style={styles.listItem}
+      data={props.places}
+      renderItem={(info) => (
+        <ListItem placeName={info.item.value} onItemPressed={() => props.onPressDeleted(info.item.key)} /> // map hanya dapat di fungsikan di dalam sebuah object tidak bisa array
+      )}
+    />
+  );
 };
 
 const styles = StyleSheet.create({

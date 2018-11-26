@@ -8,21 +8,21 @@ export default class App extends Component {
   state = {
     places: [],
   };
+
   placeAddedHandler = (placeName) => {
     this.setState((prevState) => {
       return {
-        places: prevState.places.concat(placeName), // concat() berfungsi untuk menggabungkan array dari places dengan placeName
+        places: prevState.places.concat({ key: '' + Math.random(), value: placeName }), // concat() berfungsi untuk menggabungkan array dari places dengan placeName
       };
     });
   };
-
-  placeDeletedHandler = (index) => {
+  placeDeletedHandler = (key) => {
     // index id yang di passing dari list item
     this.setState((prevState) => {
       return {
-        places: prevState.places.filter((place, idx) => {
+        places: prevState.places.filter((place) => {
           // Fungsi filter() adalah untuk membuat array baru berisi elemen yang lolos pengecekan di dalam fungsi yang telah di buat., contoh fungsi ini yang tidak sama dengan index yang akan di ambil
-          return idx !== index; // jika tidak sama dengan index yang di terima maka di lanjut. jika sama tidak di simpan di dalam state
+          return place.key !== key; // jika tidak sama dengan index yang di terima maka di lanjut. jika sama tidak di simpan di dalam state
         }),
       };
     });
