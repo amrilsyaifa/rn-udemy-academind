@@ -3,10 +3,13 @@ import { StyleSheet, View } from 'react-native';
 
 import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
+import PlaceDetail from './src/components/PlaceDetail/PlaceDetail';
+import PlaceImage from './src/assets/agus.jpg';
 
 export default class App extends Component {
   state = {
     places: [],
+    selectedPlace: null,
   };
 
   placeAddedHandler = (placeName) => {
@@ -15,18 +18,33 @@ export default class App extends Component {
         places: prevState.places.concat({
           key: '' + Math.random(),
           name: placeName,
-          image: { uri: 'https://cdn-images-1.medium.com/max/1200/1*K0a7xINk0RM5gfXGSN68cw.png' },
-        }), // concat() berfungsi untuk menggabungkan array dari places dengan placeName
+          image: PlaceImage,
+        }),
       };
     });
   };
-  placeDeletedHandler = (key) => {
+  placeDeletedHandler = () => {
     // index id yang di passing dari list item
     this.setState((prevState) => {
       return {
         places: prevState.places.filter((place) => {
           // Fungsi filter() adalah untuk membuat array baru berisi elemen yang lolos pengecekan di dalam fungsi yang telah di buat., contoh fungsi ini yang tidak sama dengan index yang akan di ambil
-          return place.key !== key; // jika tidak sama dengan index yang di terima maka di lanjut. jika sama tidak di simpan di dalam state
+          return place.key !== prevState.selectedPlace.key; // jika tidak sama dengan index yang di terima maka di lanjut. jika sama tidak di simpan di dalam state
+        }),
+        selectedPlace: null,
+      };
+    });
+  };
+  modalClosedHandler = () => {
+    this.setState({
+      selectedPlace: null,
+    });
+  };
+  placeSelectedHandler = (key) => {
+    this.setState((prevState) => {
+      return {
+        selectedPlace: prevState.places.find((place) => {
+          return place.key === key;
         }),
       };
     });
@@ -34,8 +52,13 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <PlaceDetail
+          selectedPlace={this.state.selectedPlace}
+          onItemDeleted={this.placeDeletedHandler}
+          onModalClosed={this.modalClosedHandler}
+        />
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
-        <PlaceList places={this.state.places} onPressDeleted={this.placeDeletedHandler} />
+        <PlaceList places={this.state.places} onItemSelected={this.placeSelectedHandler} />
       </View>
     );
   }
